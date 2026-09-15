@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import { User } from './user.js';
 
 const userContactsSchema = new Schema(
   {
@@ -53,5 +54,14 @@ const userContactsSchema = new Schema(
     versionKey: false,
   },
 );
+
+userContactsSchema.pre('save', async function () {
+  if (this.userId) {
+    const user = await User.findById(this.userId);
+    if (user) {
+      this.email = user.email;
+    }
+  }
+});
 
 export const UserContact = model('UserContacts', userContactsSchema);
