@@ -1,10 +1,9 @@
 import { Joi, celebrate, Segments } from 'celebrate';
+import { objectIdValidator } from './idValidation.js';
 
 export const userDataSchema = celebrate({
   [Segments.BODY]: Joi.object().keys({
-    userId: Joi.string()
-      .regex(/^[0-9a-fA-F]{24}$/) // ObjectId
-      .required(),
+    userId: Joi.string().custom(objectIdValidator).required(),
 
     techSkills: Joi.array().items(Joi.string().trim().min(1)).optional(),
 

@@ -7,6 +7,8 @@ import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import usersRoutes from './routes/usersRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import userContactsRoutes from './routes/userContactsRoutes.js';
+import userDataRoutes from './routes/userDataRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +23,8 @@ app.get('/', (req, res) => {
 
 app.use(authRoutes);
 app.use(usersRoutes);
+app.use(userContactsRoutes);
+app.use(userDataRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

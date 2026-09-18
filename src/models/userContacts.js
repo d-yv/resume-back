@@ -64,4 +64,4 @@ userContactsSchema.pre('save', async function () {
   }
 });
 
-export const UserContact = model('UserContacts', userContactsSchema);
+export const UserContacts = model('UserContacts', userContactsSchema);

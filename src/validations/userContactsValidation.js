@@ -1,10 +1,9 @@
 import { Joi, celebrate, Segments } from 'celebrate';
+import { objectIdValidator } from './idValidation.js';
 
 export const userContactsSchema = celebrate({
   [Segments.BODY]: Joi.object().keys({
-    userId: Joi.string()
-      .regex(/^[0-9a-fA-F]{24}$/) // ObjectId
-      .required(),
+    userId: Joi.string().custom(objectIdValidator).required(),
 
     phone: Joi.string()
       .pattern(/^\+?[0-9]{7,15}$/)
