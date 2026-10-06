@@ -1,4 +1,6 @@
 import { model, Schema } from 'mongoose';
+import { UserContacts } from './userContacts.js';
+import { UserData } from './userData.js';
 
 const userSchema = new Schema(
   {
@@ -40,6 +42,16 @@ const userSchema = new Schema(
 userSchema.pre('save', function () {
   if (!this.username) {
     this.username = this.email;
+  }
+});
+
+userSchema.pre('findOneAndDelete', async function (next) {
+  const userId = this.getQuery()['_id'];
+  try {
+    await UserContacts.deleteMany({ userId: userId });
+    await UserData.deleteMany({ userId: userId });
+  } catch (error) {
+    next(error);
   }
 });
 

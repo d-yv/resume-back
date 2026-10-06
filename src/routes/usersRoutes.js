@@ -20,6 +20,6 @@ router.post('/users', userValidationSchema, createUser);
 router.patch('/users/:id', objectIdValidatorSchema, updateUser);
 router.patch('/users/me/avatar', userValidationSchema, updateUserAvatar);
 
-router.delete('/users/:id', objectIdValidatorSchema, deleteUser);
+router.delete('/users/:userId', objectIdValidatorSchema, deleteUser);
 
 export default router;
